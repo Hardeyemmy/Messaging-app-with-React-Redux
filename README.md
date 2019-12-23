@@ -64,3 +64,35 @@ class Presentational extends React.Component {
     );
   }
 };
+const mapStateToProps = (state) => {
+  return { messages: state }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (newMessage) => {
+       dispatch(addMessage(newMessage))
+    }
+  }
+};
+
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
+
+// define the Container component here:
+const Container = connect(mapDispatchToProps, mapStateToProps)(Presentational)
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    // complete the return statement:
+    return (
+      <Provider store={store}>
+        <Container />
+        </Provider>
+    )
+
+  }
+};
